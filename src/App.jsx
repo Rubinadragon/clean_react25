@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import { fetchAllProducts } from './sanity/productServices'
+import { fetchAllProducts } from '../src/sanity/productServices'
 
 function App() {
   const [products, setProducts] = useState([])
@@ -11,7 +11,8 @@ function App() {
     const data = await fetchAllProducts()
     setProducts(data)
     //console.log(data)
-  }
+  }; 
+
   console.log(products)
 
   useEffect(()=>{
@@ -21,12 +22,12 @@ function App() {
   return (
     <main>
       <h1>Min nettbutikk</h1>
-      {products?.map((product) => (
+      {products?.map((product) => 
         <article key={product._id}>
           <h3>{product.productname}</h3>
           <img src={product.image.asset.url} alt={product.productname}/>
         </article>
-      ))}
+      )}
     </main>
   )
 }

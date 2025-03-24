@@ -3,8 +3,9 @@ import {client} from "./client"
 export async function fetchAllProducts(){
     const data = await client.fetch(`*[_type == "products"]{
         _id,
-        _productname,
+        productname,
         price,
-        image{asset} ->{ _id, url}}`)
+        image{asset ->{ _id, url}}
+        }`)
     return data
 }
