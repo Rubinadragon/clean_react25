@@ -28,5 +28,18 @@ export const products = {
             ],
             
         },
+        {
+            name: "productslug",
+            title: "Slug",
+            type: "slug",
+            options: {
+                source: 'productname',
+                maxLength: 200, // will be ignored if slugify is set
+                slugify: input => input
+                                     .toLowerCase()
+                                     .replace(/\s+/g, '-')
+                                     .slice(0, 200)
+              },
+        },
     ],
 }
