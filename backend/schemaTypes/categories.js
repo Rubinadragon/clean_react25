@@ -20,6 +20,19 @@ export const categories = {
                                      .replace(/\s+/g, '-')
                                      .slice(0, 200)
               },
+        },
+        {
+            name: "parentcategories",
+            title: "Parent Categories",
+            type: "array",
+            of: [
+                {
+                    type: "reference",
+                    to: [{
+                        type: "parentcategory"
+                    }]
+                }
+            ]
         }
     ]
 }
