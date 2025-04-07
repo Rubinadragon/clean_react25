@@ -5,7 +5,7 @@ import { useEffect, useState } from "react"
 export default function Product(){
     const {product} = useParams()//Det inni krøllparentes må være helt lik
     const [productInfo, setProductInfo] = useState([])
-    console.log(product)
+    //console.log(product)
 
     const getProductBySlug = async (product)=>{
         const data = await fetchProductBySlug(product)
@@ -13,7 +13,7 @@ export default function Product(){
         setProductInfo(data)
     }
 
-    console.log(productInfo)
+    //console.log(productInfo)
 
     useEffect(()=>{
         getProductBySlug(product)

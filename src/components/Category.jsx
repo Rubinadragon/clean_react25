@@ -1,11 +1,13 @@
 import { Link, useParams } from "react-router"
-import { fetchAllParentCategories } from "../sanity/categoryServices"
+import { fetchAllParentCategories, fetchCategoryBySlug } from "../sanity/categoryServices"
 import { useEffect, useState } from "react"
 import { fetchProductByParentCategory } from "../sanity/productServices"
 
 export default function Category(){
     const {category} = useParams()
     const [parentCategories, setParentCategories] = useState([])
+    const [categoryId, setCategoryId] = useState([])
+    const [categories, setCategories] = useState([])
 
     const getAllParentCategories = async()=>{
         const data = await fetchAllParentCategories()
@@ -14,18 +16,34 @@ export default function Category(){
 
     //console.log(parentCategories)
 
-    const getProductsByParentC = async ()=>{
-        const data = await fetchProductByParentCategory()
-        console.log(data)
+    const getProductsByParentC = async (id)=>{
+        const data = await fetchProductByParentCategory(id)
+        //console.log("Underkategorier fra hovedkategori: ", data)
+        setCategories(data)
+        console.log("kategorier: ", data)
     }
 
+    
+
+    const getCategoryBySlug = async (slug) => {
+        const data = await fetchCategoryBySlug(slug)
+        //console.log(data)
+        setCategoryId(data[0]._id)
+
+    }
+
+    console.log(categoryId)
     useEffect(()=>{
         getAllParentCategories()
+        
     },[])
 
     useEffect(()=>{
-        getProductsByParentC()
-    },[category])//Sjekk om hvis category eksisterer
+        getCategoryBySlug(category)
+        getProductsByParentC(categoryId)
+    },[category, categoryId])//Sjekk om hvis category eksisterer, dependency
+
+    
 
     return (
         <>
@@ -47,6 +65,12 @@ export default function Category(){
 
             (<section>
                 <h2>Underkategorier: {category}</h2>
+                <ul>
+                    {categories?.map(cat => <li key={cat._id}><Link to={cat.categoryslug.current}>
+                            {cat.categoryname}
+                            </Link>
+                        </li>)}
+                </ul>
             </section>)}
         </>
     )

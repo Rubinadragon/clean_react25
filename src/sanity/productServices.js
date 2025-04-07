@@ -24,7 +24,8 @@ export async function fetchProductBySlug(slug){
     return data
 }
 
-export async function fetchProductByParentCategory(){
-    const data = await client.fetch(`*[_type == "categories" && references("0a38760b-1275-4a33-b06d-3faeef1cd0f4")]`)
+export async function fetchProductByParentCategory(id){
+    const data = await client.fetch(`*[_type == "categories" && references($id)]`, {id})
     return data
 }
+

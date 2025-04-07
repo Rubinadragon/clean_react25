@@ -9,6 +9,7 @@ import { Route, Routes } from 'react-router'
 import Home from './components/Home'
 import Product from './components/Product'
 import Category from './components/Category'
+import SubCategory from './components/SubCategory'
 
 function App() {
   const [products, setProducts] = useState([])
@@ -31,7 +32,7 @@ function App() {
     setProducts(data)
   }
 
-  console.log(products)
+  //console.log(products)
 
   useEffect(()=>{
     getAllProducts()
@@ -45,6 +46,7 @@ function App() {
         <Route path="/" element={<Home products={products} categories={categories} getProductsByCategory={getProductsByCategory}/>}/>
         <Route path="product/:product" element={<Product/>}/>
         <Route path="category/:category" element={<Category/>}/>
+        <Route path="category/:category/:subcategory" element={<SubCategory getProductsByCategory={getProductsByCategory} products={products}/>}/>
         <Route path="category/" element={<Category/>}/>
       </Routes>
     </Layout>
